@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>janken</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const choices = ['グー', 'チョキ', 'パー'];
+            const resultText = ['あいこ', 'あなたの勝ち', 'あなたの負け'];
+            const comElement = document.getElementById('com');
+            const resultElement = document.getElementById('result');
+
+            function getComputerChoice() {
+                return Math.floor(Math.random() * 3);
+            }
+
+            function playGame(userChoice) {
+                const comChoice = getComputerChoice();
+                comElement.textContent = `コンピュータの手: ${choices[comChoice]}`;
+                const resultIndex = (userChoice - comChoice + 3) % 3;
+                resultElement.textContent = resultText[resultIndex];
+            }
+
+            document.querySelectorAll('.btn').forEach((button, index) => {
+                button.addEventListener('click', () => playGame(index));
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="main">
+        <h1>じゃんけん</h1>
+        <div id="com"></div>
+        <p>あなたの手を選んでください。</p>
+        <input type="radio" class="btn" id="r" name="hand">ぐー <br>
+        <input type="radio" class="btn" id="s" name="hand">ちょき<br>
+        <input type="radio" class="btn" id="p" name="hand">ぱー<br>
+        <div id="result"></div>
+    </div>
+</body>
+</html>
