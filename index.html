@@ -7,7 +7,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const choices = ['グー', 'チョキ', 'パー'];
-            const resultText = ['あいこ', 'あなたの勝ち', 'あなたの負け'];
+            const resultText = ['even', 'win', 'lose'];
             const comElement = document.getElementById('com');
             const resultElement = document.getElementById('result');
 
@@ -18,12 +18,15 @@
             function playGame(userChoice) {
                 const comChoice = getComputerChoice();
                 comElement.textContent = `コンピュータの手: ${choices[comChoice]}`;
-                const resultIndex = (userChoice - comChoice + 3) % 3;
+                const resultIndex = (comChoice - userChoice + 3) % 3;
                 resultElement.textContent = resultText[resultIndex];
             }
 
             document.querySelectorAll('.btn').forEach((button, index) => {
-                button.addEventListener('click', () => playGame(index));
+                button.addEventListener('click', () => {
+                    document.getElementById('res').style.opacity = 1;
+                    playGame(index);
+                });
             });
         });
     </script>
@@ -36,6 +39,8 @@
         <input type="radio" class="btn" id="r" name="hand">ぐー <br>
         <input type="radio" class="btn" id="s" name="hand">ちょき<br>
         <input type="radio" class="btn" id="p" name="hand">ぱー<br>
+
+        <h2 id="res" style="opacity: 0;">result</h2>
         <div id="result"></div>
     </div>
 </body>
